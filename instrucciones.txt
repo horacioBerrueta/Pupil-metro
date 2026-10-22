@@ -1,0 +1,15 @@
+Para ejecutar la versión de consola:
+1. Abra PowerShell en la carpeta del proyecto y ejecute: `python medicion_pupilar.py`.
+2. Elija un índice de cámara detectado (Enter selecciona el primero disponible).
+3. El programa intenta 1920 × 1080 y, si no recibe vídeo, vuelve a abrir la
+   cámara en 640 × 480 antes de probar los demás backends disponibles.
+4. Presione `Q` para finalizar la captura.
+
+Si no se puede iniciar la transmisión, el programa informa el error y los
+intentos realizados. La versión de consola abre `mediciones_pupila.csv` al
+iniciar, como antes.
+
+En la aplicación gráfica, `mediciones_pupila.csv` y `resumen_fases.csv` se
+guardan en el directorio de trabajo actual. Los accesos directos creados por el
+instalador por usuario usan la carpeta Documentos para que la grabación no
+dependa de permisos de escritura en la carpeta de instalación.

@@ -1,0 +1,32 @@
+Ejecute la aplicación gráfica desde PowerShell:
+
+    .\venv\Scripts\python.exe interface_pupilometro.py
+
+En el panel de control, seleccione la cámara y luego inicie la vista
+previa/calibración o la grabación. «Detectar cámaras» vuelve a consultar los
+índices disponibles sin mantener las webcams abiertas. El valor predeterminado
+es la cámara 0 si está disponible.
+
+Al iniciar la vista previa o la grabación, la aplicación comprueba que la cámara
+entregue fotogramas. Primero intenta 1920 × 1080; si no recibe vídeo, vuelve a
+abrirla en 640 × 480 y luego prueba los demás backends disponibles. Si no logra
+iniciar la transmisión, muestra un mensaje con el error y los intentos realizados.
+
+Para reducir el trabajo de arranque, pandas y Matplotlib se importan al solicitar
+«Generar Gráfica y Resumen», no al abrir la ventana principal. En la referencia
+del entorno de desarrollo se midió el tiempo de `import interface_pupilometro`
+en 7 procesos nuevos: mediana anterior de 3,519 s. Repita esa medición tras un
+cambio con `venv\Scripts\python.exe -c "import interface_pupilometro"` varias
+veces; el tiempo depende del equipo y de la caché. Esto mide la carga del módulo,
+no el tiempo de crear la ventana ni el de abrir la cámara.
+
+La enumeración de cámaras y la validación de la transmisión siguen siendo
+síncronas y conservan sus reintentos. No hay benchmark con una webcam física en
+esta revisión, por lo que no se afirma que haya mejorado el tiempo de apertura
+de la cámara.
+
+La grabación crea `mediciones_pupila.csv` en el directorio de trabajo actual.
+El instalador instala por usuario y configura sus accesos directos para usar
+Documentos como ese directorio, ya que la carpeta de instalación puede no
+permitir escritura. Si se inicia el ejecutable desde otro acceso directo,
+asegúrese de que su directorio de trabajo permita crear y actualizar el CSV.
